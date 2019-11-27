@@ -19,11 +19,11 @@ var ignoreDirNames = []string{
 	"gen-study-folder",
 }
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
+// func check(e error) {
+// 	if e != nil {
+// 		panic(e)
+// 	}
+// }
 
 func makeExampleDir(memberName string, exDirs []string) {
 	wd, err := os.Getwd()
@@ -41,12 +41,11 @@ func makeExampleDir(memberName string, exDirs []string) {
 	}
 
 	for _, exDir := range exDirs {
-		err = os.Mkdir(exDir, 0755)
-		check(err)
+		_ = os.Mkdir(exDir, 0755)
 	}
 
-	upperDir := filepath.Join(wd, "..")
-	err = os.Chdir(upperDir)
+	// upperDir := filepath.Join(wd, "..")
+	err = os.Chdir(wd)
 	if err != nil {
 		fmt.Printf("fail to change directory: %v\n", err)
 		return
@@ -82,8 +81,8 @@ func makeMemberDir(chapterName string) {
 	for _, sm := range studyMembers {
 		makeExampleDir(sm, dirNames)
 	}
-	upperDir := filepath.Join(wd, "..")
-	err = os.Chdir(upperDir)
+	// upperDir := filepath.Join(wd, "..")
+	err = os.Chdir(wd)
 	if err != nil {
 		fmt.Printf("fail to change directory: %v\n", err)
 		return
