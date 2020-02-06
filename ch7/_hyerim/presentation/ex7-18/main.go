@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -69,4 +70,16 @@ func newElement(src xml.StartElement) *Element {
 		retval.Attr = append(retval.Attr, attr)
 	}
 	return &retval
+}
+
+func visit(n Node) {
+	switch n := n.(type) {
+	case CharData:
+		fmt.Println("visiting: ", n)
+	case *Element:
+		fmt.Println("visiting: " + n.Type.Local)
+		for _, child := range n.Children {
+			visit(child)
+		}
+	}
 }
